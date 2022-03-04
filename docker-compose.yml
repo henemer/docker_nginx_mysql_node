@@ -3,13 +3,13 @@ version: '3.8'
 services:
   db:
     image: mysql:5.7
-    command: sh -c "--innodb-use-native-aio=0 && mysql -u root -proot < /var/lib/teste/nodedb.sql"
+    command: --innodb-use-native-aio=0
     container_name: db
     restart: always
     tty: true
     volumes:
       - ./mysql:/var/lib/mysql
-      - ./sql:/var/lib/teste      
+      - ./sql/nodedb.sql:/docker-entrypoint-initdb.d/nodedb.sql
     environment:
       - MYSQL_DATABASE=nodedb
       - MYSQL_ROOT_PASSWORD=root

@@ -1,22 +1,6 @@
-version: '3'
+version: '3.8'
 
 services:
-  app:
-    build:
-      context: node
-    container_name: app
-    entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh
-    command: node index.js
-    networks:
-      - node-network
-    volumes:
-      - ./node:/usr/src/app
-    tty: true
-    ports:
-      - "3000:3000"
-    depends_on:
-      - db
-
   db:
     image: mysql:5.7
     command: --innodb-use-native-aio=0 && mysql -u root -p root < nodedb.sql
@@ -30,6 +14,23 @@ services:
       - MYSQL_ROOT_PASSWORD=root
     networks:
       - node-network
+
+  app:
+    build:
+      context: node
+    container_name: app
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh 
+    command:  sh -c "npm install &&  node index.js"
+    networks:
+      - node-network
+    volumes:
+      - ./node:/home/node/app
+    tty: true
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
 
 
   nginx:
@@ -47,5 +48,5 @@ services:
 networks:
   node-network:
     driver: bridge
-    
+   
    

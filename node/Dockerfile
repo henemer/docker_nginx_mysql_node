@@ -1,12 +1,6 @@
-FROM node:15
+FROM node:15  
+#17.6-alpine3.14
 
-ENV NODE_ENV=production
-
-WORKDIR /usr/src/app
-
-COPY ["package.json", "package-lock.json*", "./"]
-
-RUN npm install
 
 ENV DOCKERIZE_VERSION v0.6.1
 
@@ -15,6 +9,17 @@ RUN apt-get update && apt-get install -y wget \
     && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
+RUN mkdir -p /home/node/app/node_modules
+
+WORKDIR /home/node/app
+
+COPY  . ./
+#COPY --chown=node:node . .
+#RUN npm install
+
 EXPOSE 3000
+
+CMD ["node", "index.js"]
+
 
 

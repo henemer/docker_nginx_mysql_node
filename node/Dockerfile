@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y wget \
     && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
-RUN mkdir -p /home/node/app/node_modules
+#RUN mkdir -p /home/node/app/node_modules
 
 WORKDIR /home/node/app
 
@@ -19,7 +19,7 @@ COPY  . ./
 
 EXPOSE 3000
 
-CMD ["node", "index.js"]
+#CMD ["node", "index.js"]
 
 
 

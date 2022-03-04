@@ -10,6 +10,7 @@ services:
     volumes:
       - ./mysql:/var/lib/mysql
       - ./sql/nodedb.sql:/docker-entrypoint-initdb.d/nodedb.sql
+      - ./sql:/var/lib/teste      
     environment:
       - MYSQL_DATABASE=nodedb
       - MYSQL_ROOT_PASSWORD=root

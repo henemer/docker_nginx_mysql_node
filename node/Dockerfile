@@ -1,5 +1,7 @@
 FROM node:15
 
+ENV NODE_ENV=production
+
 WORKDIR /usr/src/app
 
 COPY ["package.json", "package-lock.json*", "./"]

@@ -3,7 +3,7 @@ version: '3.8'
 services:
   db:
     image: mysql:5.7
-    command: --innodb-use-native-aio=0 && mysql -u root -proot < /var/lib/teste/nodedb.sql
+    command: sh -c "--innodb-use-native-aio=0 && mysql -u root -proot < /var/lib/teste/nodedb.sql"
     container_name: db
     restart: always
     tty: true

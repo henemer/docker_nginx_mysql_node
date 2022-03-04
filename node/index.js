@@ -12,10 +12,21 @@ const connection = mysql.createConnection(config)
 
 const sql = `INSERT INTO people (name) VALUES ('Emerson')`
 connection.query(sql)
-connection.end()
 
-app.get('/', (req, res) => {
-    res.send('<h1> Full cycle no Node.JS</h1>')
+app.get('/',  async (req, res) => {
+    var response =  '<h1> Full cycle no Node.JS</h1><ul>'
+
+    const rows = await  connection.query("SELECT * FROM people", function (err, rows, fields) {
+        if (err) throw err;
+        Object.keys(rows).forEach(function(key) {
+            var row = rows[key];
+            response += '<li>'+row.name+'</li>';
+        });
+
+        response +=  '</ul>'
+        res.send(response)
+
+    });
 })
 
 app.listen(port, () => {

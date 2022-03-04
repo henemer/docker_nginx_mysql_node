@@ -9,6 +9,7 @@ services:
     tty: true
     volumes:
       - ./mysql:/var/lib/mysql
+      - ./nodedb.sql:/docker-entrypoint-initdb.d/dump.sql      
     environment:
       - MYSQL_DATABASE=nodedb
       - MYSQL_ROOT_PASSWORD=root
